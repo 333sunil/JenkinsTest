@@ -12,8 +12,8 @@ pipeline{
                 checkout scm
                 script {
                     def json = getSecretsJson()
-                    env.db-password = getSecret(json,"db-password")
-                    env.db-user = getSecret(json,"db-user")
+                    env.DB_PASSWORD = getSecret(json,"db-password")
+                    env.DB_USER = getSecret(json,"db-user")
                 }
                 sh """
 		            	chmod +x ./test.sh
