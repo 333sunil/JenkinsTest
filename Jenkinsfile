@@ -3,7 +3,7 @@ import groovy.json.JsonSlurper
 pipeline{
 	agent any
 	environment {
-	    vault_token = 's.uwrjN7r94O60oEBxATtseAfi'
+	    token = 's.uwrjN7r94O60oEBxATtseAfi'
 	}
     stages{
         stage('Prepare') {
@@ -11,17 +11,21 @@ pipeline{
                 deleteDir()
                 checkout scm
                 script {
-                	def Json_data = getSecretsJson("${vault_token}")
-                    def password = getSecret(Json_data,"db-password")
-                    def user = getSecret(Json_data,"db-user")
+                    def json = getSecretsJson()
+                    env.db-password = getSecret(json,"db-password")
+                    env.db-user = getSecret(json,"db-user")
                 }
+                sh """
+		            	chmod +x ./test.sh
+		            	./test.sh
+                """
             }
         }
     }
 }
 
-def getSecretsJson(token) {
-    def response = httpRequest url: 'http://localhost:4000/v1', customHeaders: [[name:'X-Vault-Token', value: token]]
+def getSecretsJson() {
+    def response = httpRequest url: 'http://localhost:4000/v1', customHeaders: [[name:'X-Vault-Token', value: "$token"]]
     def json = new JsonSlurper().parseText(response.content)
     return json
 }
