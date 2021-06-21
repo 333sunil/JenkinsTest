@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo $db-password
-echo $db-user
+echo $DB_PASSWORD
+echo $DB_USER
