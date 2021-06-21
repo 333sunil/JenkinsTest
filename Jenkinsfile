@@ -1,4 +1,5 @@
 pipeline{
+	agent any
     environment {
         GRAFANA_VERSION = '7.5.6'
     } 
