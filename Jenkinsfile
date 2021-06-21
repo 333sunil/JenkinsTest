@@ -4,7 +4,6 @@ pipeline{
 	agent any
 	environment {
 	    vault_token = 's.uwrjN7r94O60oEBxATtseAfi'
-	    Json_data = getSecretsJson("${vault_token}")
 	}
     stages{
         stage('Prepare') {
