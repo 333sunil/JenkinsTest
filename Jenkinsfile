@@ -1,7 +1,4 @@
 pipeline{
-    agent{
-        label "HEAT_Reporting"
-    }
     environment {
         GRAFANA_VERSION = '7.5.6'
     } 
